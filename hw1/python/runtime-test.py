@@ -2,11 +2,12 @@ import random
 import time
 from merge_sort_func import merge_sort
 from insert_sort_func import insert_sort
+from stooge_sort_func import stooge_sort
 
 
 def run_performance_tests(algorithm, use_case):
     for i in range(1, 8):
-        test(algorithm, i * 5000, use_case)
+        test(algorithm, i * 500, use_case)
 
 
 def test(algorithm, qty, use_case):
@@ -16,8 +17,6 @@ def test(algorithm, qty, use_case):
         arr = generate_sorted_array(qty)
     elif use_case == "reversed":
         arr = generate_reversed_array(qty)
-    elif use_case == "worst_merge":
-        arr = worstCaseArrayOfSize(qty)
     else:
         arr = generate_random_numbers(qty)
 
@@ -26,6 +25,8 @@ def test(algorithm, qty, use_case):
         merge_sort(arr)
     elif algorithm == "insert":
         insert_sort(arr)
+    elif algorithm == "stooge":
+        stooge_sort(arr, 0, len(arr) - 1)
     end = time.time()
     exec_time = end - start
     # get ms
@@ -68,12 +69,16 @@ def random_number(max_num):
 
 
 print("=========MERGE SORT TESTS=========")
-run_performance_tests('merge', 'sorted')
+# run_performance_tests('merge', 'sorted')
 run_performance_tests('merge', 'random')
-run_performance_tests('merge', 'random')
-run_performance_tests('merge', 'worst_merge')
-
+#
 print("=========INSERT SORT TESTS=========")
-run_performance_tests('insert', 'sorted')
+# run_performance_tests('insert', 'sorted')
 run_performance_tests('insert', 'random')
-run_performance_tests('insert', 'reversed')
+# run_performance_tests('insert', 'reversed')
+
+
+print("=========STOOGE SORT TESTS=========")
+# run_performance_tests('stooge', 'sorted')
+run_performance_tests('stooge', 'random')
+# run_performance_tests('stooge', 'reversed')

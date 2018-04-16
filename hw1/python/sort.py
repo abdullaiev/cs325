@@ -1,5 +1,6 @@
 from merge_sort_func import merge_sort
 from insert_sort_func import insert_sort
+from stooge_sort_func import stooge_sort
 
 def parse_and_sort(input, output, sort_type):
     numbers = parse_input_file(input)
@@ -34,6 +35,9 @@ def sort(numbers, sort_type):
             sorted_arr = merge_sort(arr)
         elif sort_type == "insert":
             sorted_arr = insert_sort(arr)
+        elif sort_type == "stooge":
+            stooge_sort(arr, 0, len(arr) - 1)
+            sorted_arr = arr
 
         result += ''.join(str(int(num)) + ' ' for num in sorted_arr)
         result += '\n'
