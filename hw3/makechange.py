@@ -1,4 +1,3 @@
-import math
 import time
 
 
@@ -24,7 +23,7 @@ def parse():
         if count == 0:
             # parse denominations if this is a first line
             count = 1
-            denominations.clear()
+            denominations[:] = []
             for num in line:
                 denominations.append(int(num))
         else:
@@ -46,7 +45,7 @@ def make_change(denominations, amount, out):
     # init solutions array used for DP calculations
     # init coins array used for back-tracing which coins were used for the solution
     for i in range(1, amount + 1):
-        solutions.append(math.inf)
+        solutions.append(float('inf'))
         coins.append(0)
 
     # calculate the change from 1 coin up to the amount
