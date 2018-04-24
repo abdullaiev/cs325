@@ -1,5 +1,3 @@
-from merge_sort_func import merge_sort
-from insert_sort_func import insert_sort
 from stooge_sort_func import stooge_sort
 
 def parse_and_sort(input, output, sort_type):
