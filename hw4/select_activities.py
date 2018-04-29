@@ -1,8 +1,8 @@
 # Created by Illia Abdullaiev on 04/28/2018
 from operator import itemgetter
 
-# This function parses the inout file and groups activities that belong to one set.
-# Then, select_activities function is being invoked against each group.
+# This function parses the input file and groups activities that belong to one set.
+# Then, select_activities function is being invoked against each set.
 def parse():
     # get file pointers for input and output
     input_file = open("act.txt", "r")
@@ -22,15 +22,16 @@ def parse():
         numbers = [int(word) for word in line]
 
         if count == 0:
-            # this is the number of activities there are to process
+            # this is a number of activities there are to process in this set
             count = int(numbers[0])
             activities = []
         else:
-            # decrement the number of activities the are yet to process
+            # decrement the number of activities the are yet to process in the current set
             count = count - 1
             activities.append(numbers)
 
-            # When all activities from this group have been collected, run select_activities function against this group
+            # when all activities from this set have been collected,
+            # run select_activities function against this set
             if count == 0:
                 out_file.write('Set ')
                 out_file.write(str(set_count))
