@@ -12,6 +12,8 @@ def parse():
     # Read all lines from input file
     lines = input_file.readlines()
     loop_count = 0
+    connections_count = 0;
+    connections_total = 0;
     wrestlers_number = 0
     wrestlers_graph = {}
 
@@ -37,13 +39,17 @@ def parse():
                 'connections': []
             }
 
+        if loop_count == (wrestlers_number + 1):
+            connections_total = int(line)
+
         # Fill rivalries between wrestlers in the graph dictionary
-        if loop_count > (wrestlers_number + 1):
+        if loop_count > (wrestlers_number + 1) and connections_count < connections_total:
             # Split names into array for easy access
             line = line.split()
             connections.append(line)
             wrestlers_graph[line[0]]['connections'].append(line[1])
             wrestlers_graph[line[1]]['connections'].append(line[0])
+            connections_count = connections_count + 1
 
         loop_count = loop_count + 1
 
@@ -105,10 +111,26 @@ def get_teams(graph):
     return [babyfaces, heels]
 
 
+def get_unvisited_wrestler(graph):
+    for wrestler in graph:
+        if not graph[wrestler]['visited']:
+            return wrestler
+
+    return ""
+
+
 # Parse the input file and try to designate all wrestlers
 def run():
     parsed_data = parse()
-    bfs_distance(parsed_data['graph'], parsed_data['start'])
+
+    # Repeat until all vertices (wrestlers) have been visited
+    while True:
+        wrestler = get_unvisited_wrestler(parsed_data['graph'])
+
+        if wrestler == "":
+            break
+
+        bfs_distance(parsed_data['graph'], wrestler)
 
     # Now every vertex (wrestler) of the graph has a distance from an arbitrary start
     # Assume that all vertices with even distance are baby faces and all vertices with odd distance are heels
